@@ -44,15 +44,18 @@ function updateExpensesTable() {
     // Limpiar la tabla
     expensesTableBody.innerHTML = '';
 
+    // Mapear gastos para incluir el índice original
+    const mappedExpenses = expenses.map((expense, index) => ({ ...expense, index }));
+
     // Filtrar gastos según los filtros seleccionados
-    const filteredExpenses = expenses.filter(expense => {
+    const filteredExpenses = mappedExpenses.filter(expense => {
         const matchPerson = currentFilterPerson === 'Todos' || expense.person === currentFilterPerson;
         const matchMonth = currentFilterMonth === 'Todos' || expense.month === currentFilterMonth;
         return matchPerson && matchMonth;
     });
 
     // Agregar cada gasto filtrado a la tabla
-    filteredExpenses.forEach((expense, index) => {
+    filteredExpenses.forEach(expense => {
         const row = document.createElement('tr');
 
         const descCell = document.createElement('td');
@@ -79,7 +82,7 @@ function updateExpensesTable() {
         const modifyBtn = document.createElement('button');
         modifyBtn.textContent = 'Modificar';
         modifyBtn.classList.add('modify-btn');
-        modifyBtn.dataset.index = index;
+        modifyBtn.dataset.index = expense.index; // Índice real en 'expenses'
         actionCell.appendChild(modifyBtn);
         row.appendChild(actionCell);
 
