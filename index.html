@@ -18,7 +18,7 @@
             </div>
             <div class="form-group">
                 <label for="amount">Monto ($):</label>
-                <input type="number" id="amount" min="0" step="0.01" required>
+                <input type="number" id="amount" min="0" step="1" required> <!-- step="1" para enteros -->
             </div>
             <div class="form-group">
                 <label for="category">Categoría:</label>
@@ -127,11 +127,11 @@
         <!-- Resumen de Gastos -->
         <h2>Resumen de Gastos</h2>
         <div id="summary">
-            <p id="total-person1">Alda: $0.00</p>
-            <p id="total-person2">Jorge: $0.00</p>
-            <p id="total-person3">Martin: $0.00</p>
-            <p id="total-person4">Aremko: $0.00</p>
-            <p id="total-general">Total General: $0.00</p>
+            <p id="total-person1">Alda: $0</p>
+            <p id="total-person2">Jorge: $0</p>
+            <p id="total-person3">Martin: $0</p>
+            <p id="total-person4">Aremko: $0</p>
+            <p id="total-general">Total General: $0</p>
         </div>
     </div>
 
@@ -147,7 +147,7 @@
                 </div>
                 <div class="form-group">
                     <label for="modify-amount">Monto ($):</label>
-                    <input type="number" id="modify-amount" min="0" step="0.01" required>
+                    <input type="number" id="modify-amount" min="0" step="1" required> <!-- step="1" para enteros -->
                 </div>
                 <div class="form-group">
                     <label for="modify-category">Categoría:</label>
