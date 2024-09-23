@@ -2,6 +2,7 @@
 const expenseForm = document.getElementById('expense-form');
 const descriptionInput = document.getElementById('description');
 const amountInput = document.getElementById('amount');
+const dateInput = document.getElementById('date'); // Nuevo Campo
 const categorySelect = document.getElementById('category');
 const personSelect = document.getElementById('person');
 const monthSelect = document.getElementById('month');
@@ -18,6 +19,7 @@ const summary = {
 const filterPerson = document.getElementById('filter-person');
 const filterMonth = document.getElementById('filter-month');
 const clearFiltersBtn = document.getElementById('clear-filters');
+const clearAllBtn = document.getElementById('clear-all'); // Nuevo Botón
 
 // Modal de Modificación
 const modal = document.getElementById('modal');
@@ -25,6 +27,7 @@ const closeButton = document.querySelector('.close-button');
 const modifyForm = document.getElementById('modify-form');
 const modifyDescription = document.getElementById('modify-description');
 const modifyAmount = document.getElementById('modify-amount');
+const modifyDate = document.getElementById('modify-date'); // Nuevo Campo
 const modifyCategory = document.getElementById('modify-category');
 const modifyPerson = document.getElementById('modify-person');
 const modifyMonth = document.getElementById('modify-month');
@@ -44,18 +47,15 @@ function updateExpensesTable() {
     // Limpiar la tabla
     expensesTableBody.innerHTML = '';
 
-    // Mapear gastos para incluir el índice original
-    const mappedExpenses = expenses.map((expense, index) => ({ ...expense, index }));
-
     // Filtrar gastos según los filtros seleccionados
-    const filteredExpenses = mappedExpenses.filter(expense => {
+    const filteredExpenses = expenses.filter(expense => {
         const matchPerson = currentFilterPerson === 'Todos' || expense.person === currentFilterPerson;
         const matchMonth = currentFilterMonth === 'Todos' || expense.month === currentFilterMonth;
         return matchPerson && matchMonth;
     });
 
     // Agregar cada gasto filtrado a la tabla
-    filteredExpenses.forEach(expense => {
+    filteredExpenses.forEach((expense, index) => {
         const row = document.createElement('tr');
 
         const descCell = document.createElement('td');
@@ -65,6 +65,10 @@ function updateExpensesTable() {
         const amountCell = document.createElement('td');
         amountCell.textContent = Math.round(parseFloat(expense.amount)); // Sin decimales
         row.appendChild(amountCell);
+
+        const dateCell = document.createElement('td');
+        dateCell.textContent = expense.date; // Mostrar Fecha
+        row.appendChild(dateCell);
 
         const categoryCell = document.createElement('td');
         categoryCell.textContent = expense.category;
@@ -82,7 +86,7 @@ function updateExpensesTable() {
         const modifyBtn = document.createElement('button');
         modifyBtn.textContent = 'Modificar';
         modifyBtn.classList.add('modify-btn');
-        modifyBtn.dataset.index = expense.index; // Índice real en 'expenses'
+        modifyBtn.dataset.index = index;
         actionCell.appendChild(modifyBtn);
         row.appendChild(actionCell);
 
@@ -132,11 +136,12 @@ expenseForm.addEventListener('submit', function(e) {
 
     const description = descriptionInput.value.trim();
     const amount = amountInput.value.trim();
+    const date = dateInput.value; // Obtener Fecha
     const category = categorySelect.value;
     const person = personSelect.value;
     const month = monthSelect.value;
 
-    if (description === '' || amount === '' || category === '' || person === '' || month === '') {
+    if (description === '' || amount === '' || date === '' || category === '' || person === '' || month === '') {
         alert('Por favor, completa todos los campos.');
         return;
     }
@@ -150,6 +155,7 @@ expenseForm.addEventListener('submit', function(e) {
     const newExpense = {
         description,
         amount,
+        date, // Incluir Fecha
         category,
         person,
         month
@@ -173,6 +179,7 @@ expensesTableBody.addEventListener('click', function(e) {
         const expense = expenses[index];
         modifyDescription.value = expense.description;
         modifyAmount.value = Math.round(parseFloat(expense.amount)); // Sin decimales
+        modifyDate.value = expense.date; // Asignar Fecha
         modifyCategory.value = expense.category;
         modifyPerson.value = expense.person;
         modifyMonth.value = expense.month;
@@ -203,6 +210,7 @@ modifyForm.addEventListener('submit', function(e) {
 
     const description = modifyDescription.value.trim();
     const amount = modifyAmount.value.trim();
+    const date = modifyDate.value; // Obtener Fecha
     const category = modifyCategory.value;
     const person = modifyPerson.value;
     const month = modifyMonth.value;
@@ -215,7 +223,7 @@ modifyForm.addEventListener('submit', function(e) {
         return;
     }
 
-    if (description === '' || amount === '' || category === '' || person === '' || month === '') {
+    if (description === '' || amount === '' || date === '' || category === '' || person === '' || month === '') {
         alert('Por favor, completa todos los campos.');
         return;
     }
@@ -230,6 +238,7 @@ modifyForm.addEventListener('submit', function(e) {
     expenses[currentModifyIndex] = {
         description,
         amount,
+        date, // Incluir Fecha
         category,
         person,
         month
@@ -266,6 +275,16 @@ clearFiltersBtn.addEventListener('click', function() {
     currentFilterMonth = 'Todos';
     updateExpensesTable();
     updateSummary();
+});
+
+// Manejar el botón para borrar todos los gastos
+clearAllBtn.addEventListener('click', function() {
+    if (confirm('¿Estás seguro de que deseas borrar todos los gastos?')) {
+        expenses = []; // Vaciar el arreglo de gastos
+        saveExpenses(); // Guardar los cambios en localStorage
+        updateExpensesTable(); // Actualizar la tabla en el DOM
+        updateSummary(); // Actualizar el resumen de gastos
+    }
 });
 
 // Inicializar la aplicación
