@@ -21,6 +21,10 @@
                 <input type="number" id="amount" min="0" step="1" required> <!-- step="1" para enteros -->
             </div>
             <div class="form-group">
+                <label for="date">Fecha:</label>
+                <input type="date" id="date" required>
+            </div>
+            <div class="form-group">
                 <label for="category">Categoría:</label>
                 <select id="category" required>
                     <option value="">Selecciona una categoría</option>
@@ -104,6 +108,7 @@
                 </select>
             </div>
             <button id="clear-filters">Limpiar Filtros</button>
+            <button id="clear-all">Borrar Todos los Gastos</button> <!-- Nuevo Botón -->
         </div>
 
         <!-- Lista de Gastos -->
@@ -113,6 +118,7 @@
                 <tr>
                     <th>Descripción</th>
                     <th>Monto ($)</th>
+                    <th>Fecha</th> <!-- Nueva Columna -->
                     <th>Categoría</th>
                     <th>Persona</th>
                     <th>Mes</th>
@@ -148,6 +154,10 @@
                 <div class="form-group">
                     <label for="modify-amount">Monto ($):</label>
                     <input type="number" id="modify-amount" min="0" step="1" required> <!-- step="1" para enteros -->
+                </div>
+                <div class="form-group">
+                    <label for="modify-date">Fecha:</label>
+                    <input type="date" id="modify-date" required>
                 </div>
                 <div class="form-group">
                     <label for="modify-category">Categoría:</label>
@@ -210,3 +220,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
