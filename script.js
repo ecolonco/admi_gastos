@@ -7,9 +7,10 @@ const personSelect = document.getElementById('person');
 const monthSelect = document.getElementById('month');
 const expensesTableBody = document.querySelector('#expenses-table tbody');
 const summary = {
-    'Persona 1': document.getElementById('total-person1'),
-    'Persona 2': document.getElementById('total-person2'),
-    'Persona 3': document.getElementById('total-person3'),
+    'Alda': document.getElementById('total-person1'),
+    'Jorge': document.getElementById('total-person2'),
+    'Martin': document.getElementById('total-person3'),
+    'Aremko': document.getElementById('total-person4'),
     'Total': document.getElementById('total-general')
 };
 
@@ -76,9 +77,10 @@ function updateExpensesTable() {
 // Función para actualizar el resumen de gastos
 function updateSummary() {
     let totals = {
-        'Persona 1': 0,
-        'Persona 2': 0,
-        'Persona 3': 0,
+        'Alda': 0,
+        'Jorge': 0,
+        'Martin': 0,
+        'Aremko': 0,
         'Total': 0
     };
 
@@ -90,13 +92,16 @@ function updateSummary() {
     });
 
     filteredExpenses.forEach(expense => {
-        totals[expense.person] += parseFloat(expense.amount);
-        totals['Total'] += parseFloat(expense.amount);
+        if (totals.hasOwnProperty(expense.person)) { // Asegurarse de que la persona exista
+            totals[expense.person] += parseFloat(expense.amount);
+            totals['Total'] += parseFloat(expense.amount);
+        }
     });
 
-    summary['Persona 1'].textContent = `Persona 1: $${totals['Persona 1'].toFixed(2)}`;
-    summary['Persona 2'].textContent = `Persona 2: $${totals['Persona 2'].toFixed(2)}`;
-    summary['Persona 3'].textContent = `Persona 3: $${totals['Persona 3'].toFixed(2)}`;
+    summary['Alda'].textContent = `Alda: $${totals['Alda'].toFixed(2)}`;
+    summary['Jorge'].textContent = `Jorge: $${totals['Jorge'].toFixed(2)}`;
+    summary['Martin'].textContent = `Martin: $${totals['Martin'].toFixed(2)}`;
+    summary['Aremko'].textContent = `Aremko: $${totals['Aremko'].toFixed(2)}`;
     summary['Total'].textContent = `Total General: $${totals['Total'].toFixed(2)}`;
 }
 
