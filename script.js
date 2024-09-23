@@ -111,11 +111,11 @@ function updateSummary() {
         }
     });
 
-    summary['Alda'].textContent = `Alda: $${totals['Alda'].toFixed(2)}`;
-    summary['Jorge'].textContent = `Jorge: $${totals['Jorge'].toFixed(2)}`;
-    summary['Martin'].textContent = `Martin: $${totals['Martin'].toFixed(2)}`;
-    summary['Aremko'].textContent = `Aremko: $${totals['Aremko'].toFixed(2)}`;
-    summary['Total'].textContent = `Total General: $${totals['Total'].toFixed(2)}`;
+    summary['Alda'].textContent = `Alda: $${Math.round(totals['Alda'].toFixed(2))}`;
+    summary['Jorge'].textContent = `Jorge: $${Math.round(totals['Jorge'].toFixed(2))}`;
+    summary['Martin'].textContent = `Martin: $${Math.round(totals['Martin'].toFixed(2))}`;
+    summary['Aremko'].textContent = `Aremko: $${Math.round(totals['Aremko'].toFixed(2))}`;
+    summary['Total'].textContent = `Total General: $${Math.round(totals['Total'].toFixed(2))}`;
 }
 
 // Función para guardar gastos en localStorage
