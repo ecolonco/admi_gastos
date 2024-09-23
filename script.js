@@ -60,7 +60,7 @@ function updateExpensesTable() {
         row.appendChild(descCell);
 
         const amountCell = document.createElement('td');
-        amountCell.textContent = Math.roun(parseFloat(expense.amount).toFixed(2));
+        amountCell.textContent = Math.round(parseFloat(expense.amount)); // Sin decimales
         row.appendChild(amountCell);
 
         const categoryCell = document.createElement('td');
@@ -111,11 +111,11 @@ function updateSummary() {
         }
     });
 
-    summary['Alda'].textContent = `Alda: $${Math.round(totals['Alda'].toFixed(2))}`;
-    summary['Jorge'].textContent = `Jorge: $${Math.round(totals['Jorge'].toFixed(2))}`;
-    summary['Martin'].textContent = `Martin: $${Math.round(totals['Martin'].toFixed(2))}`;
-    summary['Aremko'].textContent = `Aremko: $${Math.round(totals['Aremko'].toFixed(2))}`;
-    summary['Total'].textContent = `Total General: $${Math.round(totals['Total'].toFixed(2))}`;
+    summary['Alda'].textContent = `Alda: $${Math.round(totals['Alda'])}`;
+    summary['Jorge'].textContent = `Jorge: $${Math.round(totals['Jorge'])}`;
+    summary['Martin'].textContent = `Martin: $${Math.round(totals['Martin'])}`;
+    summary['Aremko'].textContent = `Aremko: $${Math.round(totals['Aremko'])}`;
+    summary['Total'].textContent = `Total General: $${Math.round(totals['Total'])}`;
 }
 
 // Función para guardar gastos en localStorage
@@ -135,6 +135,12 @@ expenseForm.addEventListener('submit', function(e) {
 
     if (description === '' || amount === '' || category === '' || person === '' || month === '') {
         alert('Por favor, completa todos los campos.');
+        return;
+    }
+
+    // Validar que el monto sea un número entero
+    if (!Number.isInteger(parseFloat(amount))) {
+        alert('Por favor, ingresa un monto entero sin decimales.');
         return;
     }
 
@@ -160,6 +166,14 @@ expensesTableBody.addEventListener('click', function(e) {
     if (e.target.classList.contains('modify-btn')) {
         const index = e.target.dataset.index;
         currentModifyIndex = index;
+        // Prellenar el formulario con los datos actuales del gasto
+        const expense = expenses[index];
+        modifyDescription.value = expense.description;
+        modifyAmount.value = Math.round(parseFloat(expense.amount)); // Sin decimales
+        modifyCategory.value = expense.category;
+        modifyPerson.value = expense.person;
+        modifyMonth.value = expense.month;
+        modifyPassword.value = ''; // Limpiar contraseña
         modal.style.display = 'block';
     }
 });
@@ -200,6 +214,12 @@ modifyForm.addEventListener('submit', function(e) {
 
     if (description === '' || amount === '' || category === '' || person === '' || month === '') {
         alert('Por favor, completa todos los campos.');
+        return;
+    }
+
+    // Validar que el monto sea un número entero
+    if (!Number.isInteger(parseFloat(amount))) {
+        alert('Por favor, ingresa un monto entero sin decimales.');
         return;
     }
 
