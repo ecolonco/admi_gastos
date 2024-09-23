@@ -91,6 +91,7 @@ tr:nth-child(even) {
 #summary p {
     font-size: 1.1em;
     color: #333;
+    margin: 5px 0;
 }
 
 /* Estilos para botones de eliminar */
