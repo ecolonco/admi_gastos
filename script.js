@@ -60,7 +60,7 @@ function updateExpensesTable() {
         row.appendChild(descCell);
 
         const amountCell = document.createElement('td');
-        amountCell.textContent = parseFloat(expense.amount).toFixed(2);
+        amountCell.textContent = Math.roun(parseFloat(expense.amount).toFixed(2));
         row.appendChild(amountCell);
 
         const categoryCell = document.createElement('td');
