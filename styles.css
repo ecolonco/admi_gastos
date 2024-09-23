@@ -69,6 +69,16 @@ button:hover {
     background-color: #0069d9;
 }
 
+/* Estilos para el botón de borrar todos los gastos */
+#clear-all {
+    background-color: #dc3545;
+    color: white;
+}
+
+#clear-all:hover {
+    background-color: #c82333;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
